@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class movementManager : MonoBehaviour
 {
+    private Rigidbody rb;
     private Vector3 targetDestination;
-    private Vector3 lookAtTarget;
-    private float speed = 20f;
+    private Vector3 direction;
+    private float speed = 5f;
     private bool moving = false;
+
+    void Start(){
+        rb = this.GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
         SetTargetDestination();
+    }
+
+    void FixedUpdate() {
         Move();
     }
 
@@ -39,7 +47,9 @@ public class movementManager : MonoBehaviour
     {
         if(moving == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetDestination, speed * Time.deltaTime);
+            direction = targetDestination - transform.position;
+            direction = direction.normalized;
+            rb.MovePosition(transform.position + (direction * speed * Time.deltaTime));
             if(transform.position == targetDestination)
             {
                 moving = false;
