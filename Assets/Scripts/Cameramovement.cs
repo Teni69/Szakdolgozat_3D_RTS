@@ -13,8 +13,7 @@ public class Cameramovement : MonoBehaviour
     void Start() {
         DistanceText.text = distanceBetween.magnitude.ToString();
         transform.position = planet.transform.position - new Vector3(0, 0, 120);
-        planetBlueCam.transform.LookAt (planet.transform.position);
-        distanceBetween = planet.transform.position - transform.position;
+        //planetBlueCam.transform.LookAt (planet.transform.position);
         map.enabled = false;
     }
 
@@ -49,6 +48,7 @@ public class Cameramovement : MonoBehaviour
 
     void HandleZoom(){
         float zoomAmount = 50f; 
+        distanceBetween = planet.transform.position - transform.position;
         DistanceText.text = distanceBetween.magnitude.ToString();
         if(Input.mouseScrollDelta.y > 0 && distanceBetween.magnitude >= 55f)
         {
